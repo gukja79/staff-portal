@@ -1,0 +1,397 @@
+/* ===============================================
+   높은뜻푸른교회 staff-portal - 스타일시트
+   - 모바일 우선
+   - 폰트: Nanum Gothic
+   - 메인 컬러: 파란 계열 (차분한 톤)
+   - 라이트/다크 모드 자동 전환 (prefers-color-scheme)
+   =============================================== */
+
+/* ---------- 라이트 모드 (기본) ---------- */
+:root {
+  --color-bg:           #f5f7fb;
+  --color-surface:      #ffffff;
+  --color-surface-soft: #f1f4f9;
+  --color-text:         #111827;
+  --color-text-soft:    #5b6573;
+  --color-text-muted:   #8e96a3;
+  --color-border:       #e2e6ed;
+  --color-border-soft:  #eef0f5;
+
+  --color-primary:      #2563eb;
+  --color-primary-dark: #1d4ed8;
+  --color-primary-soft: #dbeafe;
+  --color-on-primary:   #ffffff;
+
+  --color-success:      #15a34a;
+  --color-danger:       #dc2626;
+  --color-warning:      #d97706;
+
+  --shadow-sm:    0 1px 2px rgba(15, 23, 42, 0.05);
+  --shadow-card:  0 1px 2px rgba(15, 23, 42, 0.04), 0 4px 14px rgba(15, 23, 42, 0.06);
+  --shadow-lift:  0 2px 4px rgba(15, 23, 42, 0.06), 0 12px 28px rgba(15, 23, 42, 0.10);
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+
+  --t-color: 200ms ease;
+}
+
+/* ---------- 다크 모드 ---------- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg:           #0b1220;
+    --color-surface:      #161f33;
+    --color-surface-soft: #1e293f;
+    --color-text:         #f1f5f9;
+    --color-text-soft:    #a3afc2;
+    --color-text-muted:   #6f7c93;
+    --color-border:       #2c3650;
+    --color-border-soft:  #1e2740;
+
+    --color-primary:      #60a5fa;
+    --color-primary-dark: #3b82f6;
+    --color-primary-soft: #1e3a8a;
+    --color-on-primary:   #0b1220;
+
+    --color-success:      #4ade80;
+
+    --shadow-sm:    0 1px 2px rgba(0,0,0,0.35);
+    --shadow-card:  0 1px 2px rgba(0,0,0,0.4), 0 4px 12px rgba(0,0,0,0.35);
+    --shadow-lift:  0 2px 4px rgba(0,0,0,0.5), 0 12px 28px rgba(0,0,0,0.45);
+  }
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: 'Nanum Gothic', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo',
+               'Malgun Gothic', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  transition: background-color var(--t-color), color var(--t-color);
+}
+
+/* 모드 전환 시 색상 부드럽게 */
+.app-header,
+.menu-card,
+.pin-key,
+.icon-btn,
+.pin-message,
+.pin-dot,
+input, button {
+  transition:
+    background-color var(--t-color),
+    color           var(--t-color),
+    border-color    var(--t-color),
+    box-shadow      var(--t-color);
+}
+
+body {
+  /* iOS safe area */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+           env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+/* ============== 화면 전환 ============== */
+.screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.hidden { display: none !important; }
+
+/* ============== 헤더 ============== */
+.app-header {
+  padding: 18px 16px 12px;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border-soft);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.home-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.home-header .header-titles { flex: 1; min-width: 0; }
+.home-header .header-titles h1 { margin: 0; }
+.home-header .header-titles .today {
+  margin: 3px 0 0;
+  font-size: 13px;
+  color: var(--color-text-soft);
+}
+
+.icon-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--color-text-soft);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  flex-shrink: 0;
+  transition: background-color 120ms ease, transform 100ms ease;
+}
+.icon-btn:active {
+  background: var(--color-surface-soft);
+  transform: scale(0.92);
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  color: var(--color-text);
+}
+
+/* ============== 메인 - 메뉴 카드 ============== */
+.menu-container {
+  padding: 20px 16px 32px;
+  flex: 1;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+@media (max-width: 380px) {
+  .menu-grid { grid-template-columns: 1fr; }
+}
+@media (min-width: 600px) {
+  .menu-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.menu-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 22px 16px 18px;
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  min-height: 160px;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: var(--shadow-card);
+  transition:
+    transform     120ms ease,
+    border-color  150ms ease,
+    box-shadow    150ms ease,
+    background-color var(--t-color),
+    color         var(--t-color);
+  font-family: inherit;
+}
+.menu-card:active {
+  transform: scale(0.97);
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-sm);
+}
+.menu-card:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-lift);
+}
+
+.menu-icon {
+  font-size: 44px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.menu-title {
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+  color: var(--color-text);
+}
+
+.menu-desc {
+  font-size: 12px;
+  color: var(--color-text-soft);
+  line-height: 1.4;
+}
+
+/* ============== PIN 화면 ============== */
+.pin-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px 20px;
+  max-width: 380px;
+  margin: 0 auto;
+  width: 100%;
+}
+.pin-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--color-text);
+}
+.pin-subtitle {
+  margin: 0 0 12px;
+  color: var(--color-text-soft);
+  font-size: 14px;
+}
+
+.pin-display {
+  display: flex;
+  gap: 18px;
+  margin: 16px 0 6px;
+}
+.pin-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--color-border);
+  background: transparent;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+}
+.pin-dot.filled {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  transform: scale(1.05);
+}
+.pin-display.shake { animation: pin-shake 0.45s ease; }
+@keyframes pin-shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-10px); }
+  40%, 80% { transform: translateX(10px); }
+}
+
+.pin-message {
+  min-height: 22px;
+  margin: 0 0 4px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-danger);
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.pin-message.info {
+  color: var(--color-text-soft);
+  font-weight: 400;
+}
+.pin-message.loading {
+  color: var(--color-text-soft);
+  font-weight: 700;
+}
+.pin-message.loading::before {
+  content: '';
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  flex-shrink: 0;
+}
+
+/* PIN 입력 처리 중 */
+.pin-display.busy .pin-dot.filled {
+  animation: pin-pulse 1.2s ease-in-out infinite;
+}
+@keyframes pin-pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.45; }
+}
+.pin-keypad.busy { pointer-events: none; }
+.pin-keypad.busy .pin-key { opacity: 0.4; }
+
+.pin-keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 78px);
+  gap: 14px;
+  margin-top: 8px;
+}
+@media (max-height: 720px) {
+  .pin-keypad { grid-template-columns: repeat(3, 68px); gap: 10px; }
+  .pin-key { width: 68px !important; height: 68px !important; font-size: 24px !important; }
+}
+
+.pin-key {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: 28px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+  transition: transform 90ms ease, background-color 90ms ease, border-color 90ms ease, box-shadow 90ms ease;
+}
+.pin-key:active {
+  background: var(--color-primary-soft);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  transform: scale(0.93);
+  box-shadow: none;
+}
+.pin-key:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.pin-key-action {
+  font-size: 22px;
+  color: var(--color-text-soft);
+}
+.pin-key-spacer { display: block; }
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ============== 접근성: 동작 줄이기 옵션 ============== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============== 작은 폰 (iPhone SE 등) 보정 ============== */
+@media (max-width: 360px) {
+  .app-header h1, .pin-title { font-size: 19px; }
+  .menu-title { font-size: 16px; }
+  .menu-icon { font-size: 40px; }
+  .pin-keypad { grid-template-columns: repeat(3, 64px); gap: 10px; }
+  .pin-key { width: 64px; height: 64px; font-size: 24px; }
+}
