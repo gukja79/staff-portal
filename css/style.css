@@ -302,7 +302,7 @@ body {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  padding: 14px;
+  padding: 14px 12px;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -326,12 +326,12 @@ body {
 .menu-card.--coming-soon:active { transform: none; }
 
 .menu-icon-box {
-  width: 44px; height: 44px;
-  border-radius: 12px;
+  width: 40px; height: 40px;
+  border-radius: 10px;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
-.menu-icon-box svg { width: 22px; height: 22px; }
+.menu-icon-box svg { width: 20px; height: 20px; }
 
 /* 컬러별 아이콘 박스 */
 .menu-card[data-color="blue"]   .menu-icon-box { background: var(--c-blue-bg);   color: var(--c-blue-fg); }
@@ -348,19 +348,19 @@ body {
   letter-spacing: -0.2px;
   color: var(--color-text);
   line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .menu-desc {
   margin-top: 2px;
   font-size: 12px;
   color: var(--color-text-soft);
   line-height: 1.35;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-
-.menu-arrow {
-  color: var(--color-text-muted);
-  flex-shrink: 0;
-}
-.menu-card.--coming-soon .menu-arrow { display: none; }
 
 .menu-badge {
   font-size: 10px;
@@ -537,9 +537,7 @@ body {
 
 /* ============== 작은 폰 보정 ============== */
 @media (max-width: 380px) {
-  .menu-card { padding: 12px; gap: 10px; min-height: 64px; }
-  .menu-icon-box { width: 40px; height: 40px; border-radius: 10px; }
-  .menu-icon-box svg { width: 20px; height: 20px; }
+  .menu-card { padding: 12px 10px; gap: 10px; min-height: 64px; }
   .menu-title { font-size: 14px; }
   .menu-desc { font-size: 11px; }
 }
@@ -547,4 +545,6 @@ body {
   .pin-title { font-size: 19px; }
   .pin-keypad { grid-template-columns: repeat(3, 64px); gap: 10px; }
   .pin-key { width: 64px; height: 64px; font-size: 24px; }
+  .menu-icon-box { width: 36px; height: 36px; }
+  .menu-icon-box svg { width: 18px; height: 18px; }
 }

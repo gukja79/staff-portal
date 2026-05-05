@@ -27,7 +27,6 @@ const App = (() => {
     camera:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>',
     folder:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>',
     megaphone:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 22 22 3 13 3 11"/><path d="M11 11v6.5a2.5 2.5 0 0 1-5 0V13"/></svg>',
-    arrow:    '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>',
   };
 
   // ---------- 유틸 ----------
@@ -46,19 +45,54 @@ const App = (() => {
     state.menus = (await res.json()).menus || [];
   }
 
+  // ---------- 일정 캐시 (Stale-While-Revalidate) ----------
+  const SCHEDULE_CACHE_KEY = 'SCHEDULE_CACHE_v1';
+
+  function readScheduleCache() {
+    try {
+      const raw = localStorage.getItem(SCHEDULE_CACHE_KEY);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      return (parsed && parsed.data) ? parsed : null;
+    } catch { return null; }
+  }
+  function writeScheduleCache(data) {
+    try {
+      localStorage.setItem(SCHEDULE_CACHE_KEY, JSON.stringify({ timestamp: Date.now(), data }));
+    } catch {}
+  }
+  function clearScheduleCache() {
+    try { localStorage.removeItem(SCHEDULE_CACHE_KEY); } catch {}
+  }
+
   async function loadSchedule() {
+    // 1) 캐시가 있으면 즉시 표시
+    const cached = readScheduleCache();
+    if (cached) {
+      state.schedule = cached.data;
+      renderSchedule();
+    }
+
+    // 2) 백그라운드 fetch → 도착하면 갱신
     try {
       const res = await Api.schedule();
       if (res && res.success) {
         state.schedule = res;
+        writeScheduleCache(res);
       } else {
         state.schedule = { success: false, error: (res && res.error) || '일정을 불러올 수 없습니다' };
       }
     } catch (err) {
       if (err instanceof AuthError) {
-        // 토큰 만료 → PIN 화면으로
+        // 토큰 만료 → 캐시 폐기 후 PIN 화면으로
+        clearScheduleCache();
         showPinScreen('다시 로그인해 주세요');
         throw err;
+      }
+      // 네트워크 등 일시 오류: 캐시가 보이는 중이면 조용히 무시, 아니면 에러 표시
+      if (cached) {
+        console.warn('[일정 갱신 실패]', err);
+        return;
       }
       state.schedule = { success: false, error: err.message || '일정을 불러올 수 없습니다' };
     }
@@ -288,9 +322,7 @@ const App = (() => {
       }
 
       const iconSvg = ICONS[menu.icon] || ICONS.folder;
-      const right = isComing
-        ? `<span class="menu-badge">준비 중</span>`
-        : `<span class="menu-arrow" aria-hidden="true">${ICONS.arrow}</span>`;
+      const right = isComing ? `<span class="menu-badge">준비 중</span>` : '';
 
       card.innerHTML = `
         <div class="menu-icon-box">${iconSvg}</div>
