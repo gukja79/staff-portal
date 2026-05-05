@@ -228,15 +228,16 @@ const App = (() => {
           </div>
         `).join('');
       } else {
-        // 수/금: date + title + speaker (단수)
-        titleHtml = `
-          <span class="schedule-day">${esc(it.date || '')}</span>
-          <span class="schedule-name">${esc(it.title || '')}</span>
-        `;
+        // 수/금: 윗줄=date, 아랫줄=title + speaker (양 끝)
+        titleHtml = `<span class="schedule-day">${esc(it.date || '')}</span>`;
         const speaker = (it.speaker || '').trim();
-        if (speaker) {
-          subHtml = `<div class="schedule-speaker">${esc(speaker)}</div>`;
-        }
+        const title = (it.title || '').trim();
+        subHtml = `
+          <div class="schedule-row schedule-meta">
+            <span class="schedule-name">${esc(title)}</span>
+            ${speaker ? `<span class="schedule-speaker">${esc(speaker)}</span>` : ''}
+          </div>
+        `;
       }
 
       return `

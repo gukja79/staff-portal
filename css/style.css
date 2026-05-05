@@ -186,16 +186,22 @@ body {
   letter-spacing: -0.2px;
 }
 
-.schedule-body { display: flex; flex-direction: column; gap: 10px; }
+.schedule-body { display: flex; flex-direction: column; }
 
 .schedule-item {
   display: flex; align-items: stretch; gap: 12px;
-  padding: 2px 0;
+  padding: 12px 0;
+}
+.schedule-item:first-child { padding-top: 0; }
+.schedule-item:last-child  { padding-bottom: 0; }
+.schedule-item + .schedule-item {
+  border-top: 1px solid var(--color-border-soft);
 }
 .schedule-bar {
   width: 4px;
   border-radius: 4px;
   flex-shrink: 0;
+  align-self: stretch;
   background: var(--color-text-muted);
 }
 .schedule-item.--wed .schedule-bar { background: var(--c-wed); }
@@ -223,8 +229,14 @@ body {
   font-size: 13px;
 }
 
+.schedule-meta {
+  margin-top: 4px;
+  justify-content: space-between;
+  align-items: baseline;
+}
 .schedule-part {
-  margin-top: 2px;
+  margin-top: 4px;
+  justify-content: space-between;
   align-items: center;
 }
 .schedule-part-label {
@@ -282,21 +294,18 @@ body {
 
 .menu-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(2, 1fr);
   gap: 10px;
-}
-@media (min-width: 520px) {
-  .menu-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 .menu-card {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  padding: 14px 16px;
+  padding: 14px;
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   text-decoration: none;
   color: inherit;
   cursor: pointer;
@@ -317,12 +326,12 @@ body {
 .menu-card.--coming-soon:active { transform: none; }
 
 .menu-icon-box {
-  width: 48px; height: 48px;
-  border-radius: 14px;
+  width: 44px; height: 44px;
+  border-radius: 12px;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
-.menu-icon-box svg { width: 24px; height: 24px; }
+.menu-icon-box svg { width: 22px; height: 22px; }
 
 /* 컬러별 아이콘 박스 */
 .menu-card[data-color="blue"]   .menu-icon-box { background: var(--c-blue-bg);   color: var(--c-blue-fg); }
@@ -527,11 +536,15 @@ body {
 }
 
 /* ============== 작은 폰 보정 ============== */
+@media (max-width: 380px) {
+  .menu-card { padding: 12px; gap: 10px; min-height: 64px; }
+  .menu-icon-box { width: 40px; height: 40px; border-radius: 10px; }
+  .menu-icon-box svg { width: 20px; height: 20px; }
+  .menu-title { font-size: 14px; }
+  .menu-desc { font-size: 11px; }
+}
 @media (max-width: 360px) {
   .pin-title { font-size: 19px; }
-  .menu-title { font-size: 14px; }
-  .menu-icon-box { width: 42px; height: 42px; }
-  .menu-icon-box svg { width: 22px; height: 22px; }
   .pin-keypad { grid-template-columns: repeat(3, 64px); gap: 10px; }
   .pin-key { width: 64px; height: 64px; font-size: 24px; }
 }
