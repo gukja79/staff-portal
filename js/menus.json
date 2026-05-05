@@ -3,30 +3,52 @@
     {
       "id": "leave",
       "title": "연차신청서",
-      "description": "연차/반차 신청서 작성",
-      "icon": "📋",
+      "description": "연차/반차 신청",
+      "color": "blue",
+      "icon": "calendar",
       "url": "https://script.google.com/a/macros/igodswill.org/s/AKfycbyCIJgYaXG3HxG9TdXXa8KjVRBV6rfcn5fLpny722QHYrZVXBB98sgaz43KPkkWUpjZ/exec"
     },
     {
       "id": "steward",
       "title": "회계 자료",
-      "description": "영수증, 지출 내역",
-      "icon": "🌿",
+      "description": "영수증·지출 내역",
+      "color": "green",
+      "icon": "leaf",
       "url": "https://gukja79.github.io/igw-steward/"
     },
     {
       "id": "lecturer",
       "title": "강사비 입력",
-      "description": "강사정보",
-      "icon": "🎓",
+      "description": "강사 정보 등록",
+      "color": "purple",
+      "icon": "graduation",
       "url": "https://tally.so/r/lbeQPp"
     },
     {
       "id": "photo",
       "title": "서울고 교실 사진",
-      "description": "교실 점검 사진 업로드",
-      "icon": "📷",
+      "description": "교실 점검 사진",
+      "color": "orange",
+      "icon": "camera",
       "url": "https://gukja79.github.io/church-photo-app/"
+    },
+    {
+      "id": "library",
+      "title": "자료실",
+      "description": "공유 자료·문서",
+      "color": "teal",
+      "icon": "folder",
+      "url": "",
+      "comingSoon": true
+    },
+    {
+      "id": "bulletin",
+      "title": "주보 광고",
+      "description": "광고 신청·관리",
+      "color": "wine",
+      "icon": "megaphone",
+      "url": "",
+      "comingSoon": true
     }
   ]
 }

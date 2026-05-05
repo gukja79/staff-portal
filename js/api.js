@@ -1,5 +1,7 @@
 /* ===============================================
-   api.js - Apps Script 백엔드 통신 (PIN 인증 전용)
+   api.js - Apps Script 백엔드 통신
+   - PIN 인증 + 토큰 발급
+   - 일정 조회 (schedule 액션)
    - CORS 프리플라이트를 피하려고 Content-Type을 'text/plain'으로 보냄
    - 백엔드가 AUTH_REQUIRED 코드를 반환하면 AuthError를 throw
    =============================================== */
@@ -54,10 +56,16 @@ const Api = (() => {
   }
 
   // ---------- 헬스 체크 ----------
-  // PIN 설정 여부도 함께 알려준다 (프론트의 dev 모드 판별용).
   async function ping() {
     return getJSON({ action: 'ping' });
   }
 
-  return { auth, ping, getApiUrl };
+  // ---------- 이번 주 일정 조회 (토큰 필요) ----------
+  async function schedule() {
+    const token = Auth.getToken();
+    if (!token) throw new AuthError('토큰 없음');
+    return postJSON({ action: 'schedule', token });
+  }
+
+  return { auth, ping, schedule, getApiUrl };
 })();
