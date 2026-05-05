@@ -181,9 +181,9 @@ body {
   color: var(--color-text);
 }
 .schedule-range {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--color-text-muted);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--color-text);
   letter-spacing: -0.2px;
 }
 
@@ -232,12 +232,12 @@ body {
 
 .schedule-meta {
   margin-top: 4px;
-  justify-content: space-between;
+  gap: 12px;
   align-items: baseline;
 }
 .schedule-part {
   margin-top: 4px;
-  justify-content: space-between;
+  gap: 12px;
   align-items: center;
 }
 .schedule-part-label {
