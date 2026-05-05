@@ -95,6 +95,7 @@ html, body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
+  overflow-x: hidden;
   transition: background-color var(--t-color), color var(--t-color);
 }
 
@@ -294,8 +295,10 @@ body {
 
 .menu-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
+  width: 100%;
+  min-width: 0;
 }
 
 .menu-card {
@@ -314,6 +317,7 @@ body {
   font-family: inherit;
   text-align: left;
   min-height: 72px;
+  min-width: 0;
   position: relative;
 }
 .menu-card:active { transform: scale(0.98); }
@@ -538,13 +542,16 @@ body {
 /* ============== 작은 폰 보정 ============== */
 @media (max-width: 380px) {
   .menu-card { padding: 12px 10px; gap: 10px; min-height: 64px; }
-  .menu-title { font-size: 14px; }
+  .menu-title { font-size: 13px; }
   .menu-desc { font-size: 11px; }
 }
 @media (max-width: 360px) {
   .pin-title { font-size: 19px; }
   .pin-keypad { grid-template-columns: repeat(3, 64px); gap: 10px; }
   .pin-key { width: 64px; height: 64px; font-size: 24px; }
+  .menu-card { padding: 12px 8px; gap: 8px; }
   .menu-icon-box { width: 36px; height: 36px; }
   .menu-icon-box svg { width: 18px; height: 18px; }
+  .menu-title { font-size: 12px; }
+  .menu-desc { font-size: 10px; }
 }
