@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#2563eb" />
-  <title>높은뜻푸른교회</title>
+  <meta name="theme-color" content="#4a7a5c" />
+  <title>높은뜻푸른교회 인트라넷</title>
 
   <!-- 폰트: Nanum Gothic -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,6 +17,15 @@
   <!-- ============== PIN 입력 화면 ============== -->
   <section id="screen-pin" class="screen hidden">
     <div class="pin-container">
+      <div class="pin-logo">
+        <svg viewBox="0 0 200 200" width="56" height="56" aria-hidden="true">
+          <g stroke="currentColor" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none">
+            <path d="M180 20 C180 130 130 180 20 180 C20 70 70 20 180 20 Z" fill="currentColor" fill-opacity="0.18"/>
+            <path d="M180 20 C180 130 130 180 20 180 C20 70 70 20 180 20 Z"/>
+            <path d="M20 180 L160 50"/>
+          </g>
+        </svg>
+      </div>
       <h1 class="pin-title">높은뜻푸른교회</h1>
       <p class="pin-subtitle">PIN을 입력하세요</p>
       <div id="pin-display" class="pin-display">
@@ -43,12 +52,22 @@
     </div>
   </section>
 
-  <!-- ============== 메인 화면: 메뉴 카드 ============== -->
+  <!-- ============== 메인 화면 ============== -->
   <section id="screen-home" class="screen hidden">
     <header class="app-header home-header">
-      <div class="header-titles">
-        <h1>높은뜻푸른교회</h1>
-        <p class="today" id="today-label"></p>
+      <div class="header-brand">
+        <div class="brand-logo" aria-hidden="true">
+          <svg viewBox="0 0 200 200" width="32" height="32">
+            <g stroke="currentColor" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none">
+              <path d="M180 20 C180 130 130 180 20 180 C20 70 70 20 180 20 Z" fill="currentColor" fill-opacity="0.18"/>
+              <path d="M180 20 C180 130 130 180 20 180 C20 70 70 20 180 20 Z"/>
+              <path d="M20 180 L160 50"/>
+            </g>
+          </svg>
+        </div>
+        <div class="header-titles">
+          <h1>높은뜻푸른교회</h1>
+        </div>
       </div>
       <button class="icon-btn" data-action="logout" aria-label="로그아웃" title="로그아웃">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
@@ -60,10 +79,35 @@
       </button>
     </header>
 
-    <main id="menu-container" class="menu-container">
-      <!-- JS가 메뉴 카드를 렌더링 -->
+    <main class="home-main">
+      <!-- 이번 주 일정 카드 -->
+      <section class="schedule-card" id="schedule-card" aria-live="polite">
+        <header class="schedule-head">
+          <h2 class="schedule-title">📅 이번 주 일정</h2>
+          <span class="schedule-range" id="schedule-range"></span>
+        </header>
+        <div class="schedule-body" id="schedule-body">
+          <div class="schedule-skeleton">
+            <div class="sk-line"></div>
+            <div class="sk-line"></div>
+            <div class="sk-line"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 메뉴 그리드 -->
+      <section id="menu-container" class="menu-container" aria-label="메뉴">
+        <!-- JS가 메뉴 카드를 렌더링 -->
+      </section>
+
+      <footer class="app-footer">
+        높은뜻푸른교회 교직원 · v1.0.2
+      </footer>
     </main>
   </section>
+
+  <!-- 토스트 -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
   <script src="./js/auth.js"></script>
   <script src="./js/api.js"></script>
