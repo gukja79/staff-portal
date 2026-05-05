@@ -322,7 +322,6 @@ const App = (() => {
       }
 
       const iconSvg = ICONS[menu.icon] || ICONS.folder;
-      const right = isComing ? `<span class="menu-badge">준비 중</span>` : '';
 
       card.innerHTML = `
         <div class="menu-icon-box">${iconSvg}</div>
@@ -330,7 +329,6 @@ const App = (() => {
           <div class="menu-title">${esc(menu.title)}</div>
           <div class="menu-desc">${esc(menu.description || '')}</div>
         </div>
-        ${right}
       `;
 
       if (isComing) {

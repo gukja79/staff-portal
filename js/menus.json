@@ -26,8 +26,8 @@
     },
     {
       "id": "photo",
-      "title": "서울고 교실 사진",
-      "description": "교실 점검 사진",
+      "title": "서울고 사진",
+      "description": "교실 사진",
       "color": "orange",
       "icon": "camera",
       "url": "https://gukja79.github.io/church-photo-app/"
@@ -44,7 +44,7 @@
     {
       "id": "bulletin",
       "title": "주보 광고",
-      "description": "광고 신청·관리",
+      "description": "주보 광고",
       "color": "wine",
       "icon": "megaphone",
       "url": "",
